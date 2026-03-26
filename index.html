@@ -150,6 +150,20 @@ tr:hover td{background:var(--surface2)}
 
 .no-data{font-size:14px;color:var(--text3);padding:24px 0;text-align:center;font-weight:500}
 
+.help-hero{background:var(--accent);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.help-hero-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.04em;line-height:1}
+.help-hero-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-top:5px;font-weight:500}
+.help-phase{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;margin-top:4px}
+.help-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.help-step-num{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#fff;background:var(--accent);width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.help-step-body{flex:1;min-width:0}
+.help-step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px}
+.help-step-desc{font-size:13px;color:var(--text2);line-height:1.55}
+.help-step-desc strong{font-weight:700;color:var(--text)}
+.help-step-desc em{font-style:normal;font-weight:600;color:var(--accent)}
+.help-pts-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);font-weight:500}
+.help-pts-row:last-child{border-bottom:none}
+
 .save-msg{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#059669;background:#D1FAE5;border-radius:20px;padding:4px 14px;opacity:0;transition:opacity 0.2s}
 .save-msg.show{opacity:1}
 .save-msg.err{background:#FEE2E2;color:#991B1B}
@@ -224,6 +238,101 @@ tr:hover td{background:var(--surface2)}
     <button class="btn btn-danger" onclick="clearAll()">Clear all data</button>
   </div>
 
+  <div id="view-help" class="view">
+
+    <div class="help-hero">
+      <div class="help-hero-title">How to use</div>
+      <div class="help-hero-sub">Everything you need to run a competition from your phone</div>
+    </div>
+
+    <div class="help-phase">Before competition starts</div>
+
+    <div class="help-card">
+      <div class="help-step-num">1</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Add your teams</div>
+        <div class="help-step-desc">Go to the <strong>Teams</strong> tab and add every team competing. If a club is entering both an A and B team, tick the <em>"This team has a B team"</em> checkbox before saving — this unlocks a separate B entry in the running order.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">2</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Set the running order</div>
+        <div class="help-step-desc">Go to the <strong>Order</strong> tab. Select each event using the pills at the top, then tap teams from the pool to add them in the order they will perform. Use the ↑↓ buttons to adjust. Teams with a B team appear as two separate entries — add them independently wherever they appear in the running order.</div>
+      </div>
+    </div>
+
+    <div class="help-phase" style="margin-top:24px">During the competition</div>
+
+    <div class="help-card">
+      <div class="help-step-num">3</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Enter scores as they're announced</div>
+        <div class="help-step-desc">Go to the <strong>Enter</strong> tab. Select the event, then pick the competitor number — this matches the order each team performed, so #1 performed first, #2 second, and so on. Type in the raw score and tap <em>Save score</em>.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">4</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Watch the leaderboard update</div>
+        <div class="help-step-desc">Tap <strong>Standings</strong> to see the live leaderboard. Scores appear immediately. Placings and points are only calculated once every competing team has a score for that event — until then, a <em>?</em> is shown.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">5</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Fix a mistake</div>
+        <div class="help-step-desc">Go to the <strong>Enter</strong> tab and scroll down to the entered scores log. Tap <strong>×</strong> next to any score to remove it, then re-enter the correct value.</div>
+      </div>
+    </div>
+
+    <div class="help-phase" style="margin-top:24px">Scoring rules</div>
+
+    <div class="help-card" style="padding-bottom:4px">
+      <div style="width:100%">
+        <div class="help-step-title" style="margin-bottom:12px">Placing points</div>
+        <div class="help-pts-row"><span class="place-pill p1">1st</span><span>6 points</span></div>
+        <div class="help-pts-row"><span class="place-pill p2">2nd</span><span>4 points</span></div>
+        <div class="help-pts-row"><span class="place-pill p3">3rd</span><span>2 points</span></div>
+        <div class="help-pts-row"><span class="place-pill phm">HM</span><span>1 point — Highly Commended</span></div>
+        <div class="help-pts-row"><span class="place-pill phc">HC</span><span>0.5 points — Honorable Mention</span></div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">Ties</div>
+        <div class="help-step-desc">Teams with equal raw scores share the same placing and both receive full points. The next place below is still awarded to the next team — no places are skipped.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">A and B teams</div>
+        <div class="help-step-desc">Where a team enters both an A and B squad in the same event, only the higher raw score counts toward that team's total and placing. The lower score is ignored entirely.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">Trophy winner</div>
+        <div class="help-step-desc">The overall winner is the team with the most placing points across all events. The leaderboard is sorted by points at all times.</div>
+      </div>
+    </div>
+
+    <div class="help-phase" style="margin-top:24px">Data & privacy</div>
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">Your data stays on your device</div>
+        <div class="help-step-desc">All teams, running orders, and scores are saved locally in your browser. Nothing is sent to any server. A refresh will not lose your data — but clearing your browser data or using a different device will start fresh.</div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <nav class="bottomnav">
@@ -246,6 +355,10 @@ tr:hover td{background:var(--surface2)}
   <button class="nav-btn" onclick="show('setup',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
     <span>Teams</span>
+  </button>
+  <button class="nav-btn" onclick="show('help',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span>Help</span>
   </button>
 </nav>
 
@@ -300,6 +413,7 @@ function show(id,btn){
   if(id==='enter'){populateEnterEvent();updateEntryNumbers();}
   if(id==='order'){renderOrderTabs();renderOrderEditor();}
   if(id==='setup')renderTeamList();
+  if(id==='help'){}  
 }
 
 function addTeam(){
