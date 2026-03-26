@@ -181,6 +181,7 @@ tr:hover td{background:var(--surface2)}
 <div class="content">
 
   <div id="view-leaderboard" class="view">
+    <div id="lb-comp-name"></div>
     <div class="legend">
       <span class="place-pill p1">1st = 6pts</span>
       <span class="place-pill p2">2nd = 4pts</span>
@@ -231,6 +232,13 @@ tr:hover td{background:var(--surface2)}
   </div>
 
   <div id="view-setup" class="view">
+    <div class="slabel">Competition name</div>
+    <div class="form-group">
+      <input type="text" id="comp-name-input" placeholder="e.g. State Championships 2025" maxlength="60">
+    </div>
+    <button class="btn btn-primary" onclick="saveCompName()">Save name</button>
+    <p id="comp-name-msg" style="font-size:12px;color:var(--text3);margin-top:8px;text-align:center;min-height:16px"></p>
+
     <div class="slabel">Add a team</div>
     <div class="form-group">
       <input type="text" id="new-team" placeholder="Team name" maxlength="40">
@@ -377,8 +385,9 @@ const PLACE_CLASS={'1':'p1','2':'p2','3':'p3','HM':'phm','HC':'phc'};
 const SK_TEAMS='cali_teams_v5';
 const SK_SCORES='cali_scores_v5';
 const SK_ORDERS='cali_orders_v5';
+const SK_COMPNAME='cali_compname_v5';
 
-let teams=[],scores=[],orders={};
+let teams=[],scores=[],orders={},compName='';
 let activeOrderEvent=EVENTS[0];
 
 function save(){
@@ -386,6 +395,7 @@ function save(){
     localStorage.setItem(SK_TEAMS,JSON.stringify(teams));
     localStorage.setItem(SK_SCORES,JSON.stringify(scores));
     localStorage.setItem(SK_ORDERS,JSON.stringify(orders));
+    localStorage.setItem(SK_COMPNAME,compName);
     updateMeta();
   }catch(e){}
 }
@@ -394,9 +404,11 @@ function load(){
     const t=localStorage.getItem(SK_TEAMS);
     const s=localStorage.getItem(SK_SCORES);
     const o=localStorage.getItem(SK_ORDERS);
+    const n=localStorage.getItem(SK_COMPNAME);
     if(t)teams=JSON.parse(t);
     if(s)scores=JSON.parse(s);
     if(o)orders=JSON.parse(o);
+    if(n)compName=n;
   }catch(e){}
 }
 function updateMeta(){
@@ -405,22 +417,44 @@ function updateMeta(){
     scores.length+' score'+(scores.length!==1?'s':'')+' · saved '+
     new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 }
+function saveCompName(){
+  const inp=document.getElementById('comp-name-input');
+  compName=inp.value.trim();
+  save();
+  const msg=document.getElementById('comp-name-msg');
+  msg.textContent='Saved!';
+  setTimeout(()=>msg.textContent='',2000);
+  renderCompNameHeader();
+}
+function populateCompNameField(){
+  const inp=document.getElementById('comp-name-input');
+  if(inp)inp.value=compName;
+}
+function renderCompNameHeader(){
+  const el=document.getElementById('lb-comp-name');
+  if(!el)return;
+  el.innerHTML=compName
+    ?`<div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px">${compName}</div>`
+    :'';
+}
+
 function clearAll(){
   if(!confirm('Clear all teams, orders and scores? Cannot be undone.'))return;
-  teams=[];scores=[];orders={};save();
-  renderLeaderboard();renderTeamList();renderOrderTabs();renderOrderEditor();
+  teams=[];scores=[];orders={};compName='';save();
+  renderLeaderboard();renderCompNameHeader();renderTeamList();renderOrderTabs();renderOrderEditor();
+  const inp=document.getElementById('comp-name-input');if(inp)inp.value='';
 }
 function show(id,btn){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('view-'+id).classList.add('on');
   btn.classList.add('on');
-  if(id==='leaderboard')renderLeaderboard();
+  if(id==='leaderboard'){renderLeaderboard();renderCompNameHeader();}
   if(id==='events')renderEvents();
   if(id==='enter'){populateEnterEvent();updateEntryNumbers();}
   if(id==='order'){renderOrderTabs();renderOrderEditor();}
-  if(id==='setup')renderTeamList();
-  if(id==='help'){}  
+  if(id==='setup'){renderTeamList();populateCompNameField();}
+  if(id==='help'){}
 }
 
 function addTeam(){
@@ -636,7 +670,7 @@ function renderEvents(){
   el.innerHTML=html;
 }
 
-load();updateMeta();renderLeaderboard();
+load();updateMeta();renderLeaderboard();renderCompNameHeader();
 populateEnterEvent();updateEntryNumbers();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -701,7 +735,7 @@ function exportImage(){
   wrap.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
       <div>
-        <div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:700;color:${text};text-transform:uppercase;letter-spacing:0.04em;line-height:1">Final Standings</div>
+        <div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:700;color:${text};text-transform:uppercase;letter-spacing:0.04em;line-height:1">${compName||'Final Standings'}</div>
         <div style="font-size:12px;color:${text2};margin-top:4px;font-weight:500">${now}</div>
       </div>
       <div style="background:${accent};border-radius:8px;padding:6px 14px;font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;color:#fff;letter-spacing:0.05em;text-transform:uppercase">Calisthenics Tracker</div>
