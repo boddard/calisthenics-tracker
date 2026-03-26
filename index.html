@@ -179,7 +179,7 @@ tr:hover td{background:var(--surface2)}
 
 <div class="content">
 
-  <div id="view-leaderboard" class="view on">
+  <div id="view-leaderboard" class="view">
     <div class="legend">
       <span class="place-pill p1">1st = 6pts</span>
       <span class="place-pill p2">2nd = 4pts</span>
@@ -238,7 +238,7 @@ tr:hover td{background:var(--surface2)}
     <button class="btn btn-danger" onclick="clearAll()">Clear all data</button>
   </div>
 
-  <div id="view-help" class="view">
+  <div id="view-help" class="view on">
 
     <div class="help-hero">
       <div class="help-hero-title">How to use</div>
@@ -335,29 +335,29 @@ tr:hover td{background:var(--surface2)}
 </div>
 
 <nav class="bottomnav">
-  <button class="nav-btn on" onclick="show('leaderboard',this)">
+  <button class="nav-btn on" onclick="show('help',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span>Help</span>
+  </button>
+  <button class="nav-btn" onclick="show('setup',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    <span>Teams</span>
+  </button>
+  <button class="nav-btn" onclick="show('order',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    <span>Order</span>
+  </button>
+  <button class="nav-btn" onclick="show('enter',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span>Enter</span>
+  </button>
+  <button class="nav-btn" onclick="show('leaderboard',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
     <span>Standings</span>
   </button>
   <button class="nav-btn" onclick="show('events',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     <span>By event</span>
-  </button>
-  <button class="nav-btn" onclick="show('enter',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-    <span>Enter</span>
-  </button>
-  <button class="nav-btn" onclick="show('order',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-    <span>Order</span>
-  </button>
-  <button class="nav-btn" onclick="show('setup',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-    <span>Teams</span>
-  </button>
-  <button class="nav-btn" onclick="show('help',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    <span>Help</span>
   </button>
 </nav>
 
