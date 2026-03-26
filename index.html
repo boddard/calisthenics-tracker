@@ -163,6 +163,8 @@ tr:hover td{background:var(--surface2)}
 .help-step-desc em{font-style:normal;font-weight:600;color:var(--accent)}
 .help-pts-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);font-weight:500}
 .help-pts-row:last-child{border-bottom:none}
+.help-email{color:var(--accent);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:1px}
+.help-email:hover{opacity:0.8}
 
 .save-msg{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#059669;background:#D1FAE5;border-radius:20px;padding:4px 14px;opacity:0;transition:opacity 0.2s}
 .save-msg.show{opacity:1}
@@ -265,42 +267,58 @@ tr:hover td{background:var(--surface2)}
     <div class="help-card">
       <div class="help-step-num">1</div>
       <div class="help-step-body">
-        <div class="help-step-title">Add your teams</div>
-        <div class="help-step-desc">Go to the <strong>Teams</strong> tab and add every team competing. If a club is entering both an A and B team, tick the <em>"This team has a B team"</em> checkbox before saving — this unlocks a separate B entry in the running order.</div>
+        <div class="help-step-title">Enter the competition name</div>
+        <div class="help-step-desc">Go to the <strong>Teams</strong> tab and enter the competition name at the top — this will appear as the title on the leaderboard and on any exported image. Tap <em>Save name</em> to confirm.</div>
       </div>
     </div>
 
     <div class="help-card">
       <div class="help-step-num">2</div>
       <div class="help-step-body">
-        <div class="help-step-title">Set the running order</div>
-        <div class="help-step-desc">Go to the <strong>Order</strong> tab. Select each event using the pills at the top, then tap teams from the pool to add them in the order they will perform. Use the ↑↓ buttons to adjust. Teams with a B team appear as two separate entries — add them independently wherever they appear in the running order.</div>
+        <div class="help-step-title">Add your teams</div>
+        <div class="help-step-desc">Still in the <strong>Teams</strong> tab, add every club competing. If a club is entering both an A and B team in any event, tick the <em>"This team has a B team"</em> checkbox before saving — this unlocks two separate entries for that club in the running order. Teams can be removed at any time, which will also delete any scores associated with them.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">3</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Set the running order for each event</div>
+        <div class="help-step-desc">Go to the <strong>Order</strong> tab. The six events — March, Clubs, Rods, Freearm, Rhythmical, and Dance — are shown as pills at the top. Select each event in turn, then tap clubs from the pool on the left to add them to the running order. The number assigned to each club reflects the order they will perform: #1 goes first, #2 second, and so on. Use the ↑↓ buttons to reorder. If a club has a B team, both A and B appear as separate entries in the pool — place them wherever they fall in the draw. Clubs not competing in a particular event simply stay in the pool and are excluded from that event's results.</div>
       </div>
     </div>
 
     <div class="help-phase" style="margin-top:24px">During the competition</div>
 
     <div class="help-card">
-      <div class="help-step-num">3</div>
-      <div class="help-step-body">
-        <div class="help-step-title">Enter scores as they're announced</div>
-        <div class="help-step-desc">Go to the <strong>Enter</strong> tab. Select the event, then pick the competitor number — this matches the order each team performed, so #1 performed first, #2 second, and so on. Type in the raw score and tap <em>Save score</em>.</div>
-      </div>
-    </div>
-
-    <div class="help-card">
       <div class="help-step-num">4</div>
       <div class="help-step-body">
-        <div class="help-step-title">Watch the leaderboard update</div>
-        <div class="help-step-desc">Tap <strong>Standings</strong> to see the live leaderboard. Scores appear immediately. Placings and points are only calculated once every competing team has a score for that event — until then, a <em>?</em> is shown.</div>
+        <div class="help-step-title">Enter scores as they are announced</div>
+        <div class="help-step-desc">Go to the <strong>Enter</strong> tab. Select the current event, then choose the competitor number from the dropdown — numbers correspond directly to the running order set before the competition. Type in the raw score announced by the judge and tap <em>Save score</em>. The dropdown will automatically advance to the next unscored competitor. Competitors who already have a score entered are greyed out with a ✓ so you always know where you are up to. Not every club is required to compete in every event — simply skip any that are not participating.</div>
       </div>
     </div>
 
     <div class="help-card">
       <div class="help-step-num">5</div>
       <div class="help-step-body">
-        <div class="help-step-title">Fix a mistake</div>
-        <div class="help-step-desc">Go to the <strong>Enter</strong> tab and scroll down to the entered scores log. Tap <strong>×</strong> next to any score to remove it, then re-enter the correct value.</div>
+        <div class="help-step-title">Watch the standings update live</div>
+        <div class="help-step-desc">Tap <strong>Standings</strong> at any time to see the live leaderboard. As each score is entered, placings and points recalculate instantly for all clubs who have been scored in that event — you do not need to wait for every club to be scored before the leaderboard updates. Clubs yet to be scored in an event will show a <em>?</em>. The <strong>By event</strong> tab gives a more detailed breakdown of scores and placings event by event.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">6</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Correct a mistake</div>
+        <div class="help-step-desc">Go to the <strong>Enter</strong> tab and scroll down to the entered scores log at the bottom. Every score is listed in reverse entry order. Tap <strong>×</strong> next to any score to remove it, then re-enter the correct value. Placings and points will recalculate automatically as soon as the correction is made.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-num">7</div>
+      <div class="help-step-body">
+        <div class="help-step-title">Export the final standings</div>
+        <div class="help-step-desc">Once all scores are in, go to the <strong>Standings</strong> tab and tap <em>Save leaderboard as image</em> at the bottom of the page. A high-resolution PNG of the full leaderboard — including all event scores, placing pills, and points — will be saved to your device, ready to share or print.</div>
       </div>
     </div>
 
@@ -319,30 +337,47 @@ tr:hover td{background:var(--surface2)}
 
     <div class="help-card">
       <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">How placings are determined</div>
+        <div class="help-step-desc">Placings within each event are inferred automatically from raw scores — the highest raw score earns 1st, the next earns 2nd, and so on. You do not need to enter placings manually. The overall leaderboard trophy is decided by total placing points accumulated across all events, not by raw score totals.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
         <div class="help-step-title">Ties</div>
-        <div class="help-step-desc">Teams with equal raw scores share the same placing and both receive full points. The next place below is still awarded to the next team — no places are skipped.</div>
+        <div class="help-step-desc">When two or more clubs receive the same raw score in an event, they share the same placing and each receives full points for that place. Crucially, the place immediately below is still awarded to the next club — no places are skipped as a result of a tie. For example, two clubs tying for 1st both receive 6 points, and the next club below them is awarded 2nd place and 4 points.</div>
       </div>
     </div>
 
     <div class="help-card">
       <div class="help-step-body" style="padding-left:0">
         <div class="help-step-title">A and B teams</div>
-        <div class="help-step-desc">Where a team enters both an A and B squad in the same event, only the higher raw score counts toward that team's total and placing. The lower score is ignored entirely.</div>
-      </div>
-    </div>
-
-    <div class="help-card">
-      <div class="help-step-body" style="padding-left:0">
-        <div class="help-step-title">Trophy winner</div>
-        <div class="help-step-desc">The overall winner is the team with the most placing points across all events. The leaderboard is sorted by points at all times.</div>
+        <div class="help-step-desc">Where a club enters both an A and B team in the same event, both scores are recorded separately under their respective competitor numbers. Only the higher of the two raw scores counts toward that club's placing and points total for that event — the lower score is disregarded entirely and does not affect other clubs' placings.</div>
       </div>
     </div>
 
     <div class="help-phase" style="margin-top:24px">Data & privacy</div>
+
     <div class="help-card">
       <div class="help-step-body" style="padding-left:0">
         <div class="help-step-title">Your data stays on your device</div>
-        <div class="help-step-desc">All teams, running orders, and scores are saved locally in your browser. Nothing is sent to any server. A refresh will not lose your data — but clearing your browser data or using a different device will start fresh.</div>
+        <div class="help-step-desc">All competition names, teams, running orders, and scores are saved locally in your browser's storage. Nothing is sent to any server. The data will survive a page refresh or closing and reopening the browser. However, clearing your browser's data or switching to a different device will start fresh — so avoid doing either during a live competition.</div>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">Starting a new competition</div>
+        <div class="help-step-desc">When you are ready to start fresh for a new competition, go to the <strong>Teams</strong> tab, scroll to the bottom and tap <em>Clear all data</em>. This will permanently remove all teams, running orders, scores, and the competition name. Make sure you have exported your results first if you need a record of the previous competition.</div>
+      </div>
+    </div>
+
+    <div class="help-phase" style="margin-top:24px">Support</div>
+
+    <div class="help-card">
+      <div class="help-step-body" style="padding-left:0">
+        <div class="help-step-title">Need help?</div>
+        <div class="help-step-desc">If you run into any issues or have questions about using Calisthenics Tracker, get in touch with us directly at <a href="mailto:support@calitracker.net" class="help-email">support@calitracker.net</a>. We're happy to help.</div>
       </div>
     </div>
 
