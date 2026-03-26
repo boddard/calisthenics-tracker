@@ -548,7 +548,12 @@ function populateEnterEvent(){
 function updateEntryNumbers(){
   const ev=document.getElementById('e-event').value,ord=getOrder(ev),sel=document.getElementById('e-num');
   if(!ord.length){sel.innerHTML='<option value="">— set running order first —</option>';return;}
-  sel.innerHTML=ord.map((e,i)=>`<option value="${i}">#${i+1} — ${e.team} (${e.ab})</option>`).join('');
+  sel.innerHTML=ord.map((e,i)=>{
+    const hasScore=!!scores.find(s=>s.team===e.team&&s.event===ev&&s.ab===e.ab);
+    return`<option value="${i}" ${hasScore?'disabled':''} style="${hasScore?'color:var(--text3)':''}">#${i+1} — ${e.team} (${e.ab})${hasScore?' ✓':''}</option>`;
+  }).join('');
+  const firstUnscored=ord.findIndex((e,i)=>!scores.find(s=>s.team===e.team&&s.event===ev&&s.ab===e.ab));
+  if(firstUnscored>=0)sel.value=String(firstUnscored);
 }
 function addScore(){
   const ev=document.getElementById('e-event').value;
@@ -561,9 +566,9 @@ function addScore(){
   const{team,ab}=ord[numIdx];
   scores.push({team,event:ev,ab,score:scoreVal,num:numIdx+1});
   document.getElementById('e-score').value='';
-  save();flash('✓ Saved',false);renderScoreLog();
+  save();flash('✓ Saved',false);renderScoreLog();updateEntryNumbers();
 }
-function removeScore(i){scores.splice(i,1);save();renderScoreLog();}
+function removeScore(i){scores.splice(i,1);save();renderScoreLog();updateEntryNumbers();}
 function renderScoreLog(){
   const el=document.getElementById('score-log');
   if(!scores.length){el.innerHTML='<div class="no-data">No scores yet.</div>';return;}
@@ -591,8 +596,9 @@ function getEventCountingScores(ev){
 }
 function inferPlacings(ev){
   const cs=getEventCountingScores(ev);
-  if(!cs.length||cs.some(r=>r.score===null))return null;
-  const sorted=[...cs].sort((a,b)=>b.score-a.score);
+  const scored=cs.filter(r=>r.score!==null);
+  if(!scored.length)return null;
+  const sorted=[...scored].sort((a,b)=>b.score-a.score);
   const keys=['1','2','3','HM','HC'];const result={};let pi=0;
   sorted.forEach((r,i)=>{if(i>0&&r.score<sorted[i-1].score)pi++;result[r.team]=pi<keys.length?keys[pi]:null;});
   return result;
@@ -604,10 +610,10 @@ function getTeamTotals(){
     EVENTS.forEach(ev=>{
       const cs=getEventCountingScores(ev),mine=cs.find(r=>r.team===team);
       if(!mine){eventData[ev]=null;return;}
-      if(mine.score===null){eventData[ev]={score:null,place:null,pts:0,hasB:mine.hasB,complete:false,inEvent:true};return;}
+      if(mine.score===null){eventData[ev]={score:null,place:null,pts:0,hasB:mine.hasB,inEvent:true};return;}
       const placings=inferPlacings(ev),place=placings?placings[team]:null,pts=place?PLACE_PTS[place]:0;
       totalPts+=pts;totalRaw+=mine.score;
-      eventData[ev]={score:mine.score,place,pts,hasB:mine.hasB,complete:!!placings};
+      eventData[ev]={score:mine.score,place,pts,hasB:mine.hasB};
     });
     return{team,totalPts,totalRaw,eventData};
   }).sort((a,b)=>b.totalPts-a.totalPts);
@@ -631,7 +637,7 @@ function renderLeaderboard(){
     EVENTS.forEach(ev=>{
       const ed=row.eventData[ev];
       if(!ed||ed.score===null){html+=`<td class="score-cell">${ed&&ed.inEvent?'<span class="pending-pill">?</span>':'—'}</td>`;return;}
-      const pill=ed.complete&&ed.place?`<br><span class="place-pill ${PLACE_CLASS[ed.place]}">${PLACE_LABEL[ed.place]}</span>`:ed.complete?'':`<br><span class="pending-pill">?</span>`;
+      const pill=ed.place?`<br><span class="place-pill ${PLACE_CLASS[ed.place]}">${PLACE_LABEL[ed.place]}</span>`:'';
       html+=`<td class="score-cell has" style="line-height:1.6">${ed.score.toFixed(1)}${pill}</td>`;
     });
     html+=`<td class="pts-col" style="text-align:right">${row.totalPts>0?row.totalPts:(row.totalRaw>0?'0':'—')}</td></tr>`;
@@ -646,22 +652,22 @@ function renderEvents(){
   let html='';
   EVENTS.forEach(ev=>{
     const cs=getEventCountingScores(ev),scored=cs.filter(r=>r.score!==null);
-    const placings=inferPlacings(ev),complete=!!placings;
+    const placings=inferPlacings(ev);
     const sorted=[...scored].sort((a,b)=>b.score-a.score);
     html+=`<div class="ev-block"><div class="ev-block-title"><span>${ev}</span>`;
-    if(cs.length>0&&!complete)html+=`<span class="pending-pill">${scored.length}/${cs.length} scored</span>`;
+    if(cs.length>0&&scored.length<cs.length)html+=`<span class="pending-pill">${scored.length}/${cs.length} scored</span>`;
     html+=`</div>`;
     if(!sorted.length){html+=`<div class="no-data" style="padding:10px 0">No scores yet.</div></div>`;return;}
     html+='<table><thead><tr><th class="rank-cell"></th><th>Team</th><th style="text-align:center">Score</th><th style="text-align:center">Place</th><th style="text-align:right">Pts</th></tr></thead><tbody>';
     let dr=1;
     sorted.forEach((r,idx)=>{
       if(idx>0&&r.score<sorted[idx-1].score)dr=idx+1;
-      const place=complete?placings[r.team]:null,pts=place?PLACE_PTS[place]:null;
+      const place=placings?placings[r.team]:null,pts=place?PLACE_PTS[place]:null;
       html+=`<tr>
         <td class="rank-cell">${rankBadge(dr)}</td>
         <td class="team-cell">${r.team}${r.hasB?`<span class="ab-tag">A/B</span>`:''}</td>
         <td style="text-align:center;font-weight:600">${r.score.toFixed(2)}</td>
-        <td style="text-align:center">${complete?(place?`<span class="place-pill ${PLACE_CLASS[place]}">${PLACE_LABEL[place]}</span>`:'—'):`<span class="pending-pill">pending</span>`}</td>
+        <td style="text-align:center">${place?`<span class="place-pill ${PLACE_CLASS[place]}">${PLACE_LABEL[place]}</span>`:'—'}</td>
         <td class="pts-col" style="text-align:right">${pts!==null?pts:'—'}</td>
       </tr>`;
     });
@@ -714,7 +720,7 @@ function exportImage(){
       if(!ed||ed.score===null){
         eventCells+=`<td style="text-align:center;padding:10px 6px;font-size:12px;color:${text3}">${ed&&ed.inEvent?'?':'—'}</td>`;
       } else {
-        const pill=ed.complete&&ed.place?`<br>${placePillHTML(ed.place)}`:ed.complete?'':`<br><span style="font-size:9px;color:${text3}">?</span>`;
+        const pill=ed.place?`<br>${placePillHTML(ed.place)}`:'';
         eventCells+=`<td style="text-align:center;padding:10px 6px;font-size:12px;font-weight:600;color:${text};line-height:1.6">${ed.score.toFixed(1)}${pill}</td>`;
       }
     });
